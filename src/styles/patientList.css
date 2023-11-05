@@ -1,0 +1,58 @@
+/* patientList.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.patient-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.page-buttons {
+    margin-bottom: 20px;
+}
+
+.page-buttons button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 8px 16px; /* 수정된 부분: 버튼 크기 조정 */
+    font-size: 16px; /* 수정된 부분: 폰트 크기 조정 */
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.page-buttons button:hover {
+    background-color: #45a049;
+}
+
+.patient-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.patient-list li {
+    font-size: 18px; /* 수정된 부분: 폰트 크기 조정 */
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.patient-list li:hover {
+    text-decoration: underline;
+}
+
+.page-numbers {
+    font-size: 16px; /* 수정된 부분: 폰트 크기 조정 */
+    color: #555;
+    margin-top: 10px;
+}
+
+.page-numbers span {
+    margin-right: 10px;
+}

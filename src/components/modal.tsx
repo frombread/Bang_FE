@@ -11,6 +11,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ id, closeModal }) => {
     const [del, setDel] = useState(false);
+
     const handleDelete = () => {
         console.log("handleDelete 함수 호출됨");
         setDel(true);
@@ -24,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ id, closeModal }) => {
                 <Read id={id} />
                 <button onClick={() => {handleDelete();}} type="button">삭제</button>
                 {del && (
-                    <Remove id={id}  />
+                    <Remove id={id} />
                 )}
                 <button onClick={() => {/* 업데이트 컴포넌트 실행 */}} type="button">업데이트</button>
             </div>

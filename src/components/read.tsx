@@ -34,7 +34,7 @@ const Read: React.FC<ReadProps> = ({ id }) => {
             <div className="read-item">Gender: {data.gender}</div>
             <div className="read-item">Date of Birth: {data.dateOfBirth}</div>
             <div className="read-item">Disease: {data.disease}</div>
-            <div className="read-item">Body Parts: {data.bodyParts}</div>
+            <div className="read-item">Body Parts: {data.bodyParts.join(", ")}</div>
             {data.notes && <div className="read-item">Notes: {data.notes}</div>}
         </div>
     );
