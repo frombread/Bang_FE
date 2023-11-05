@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 
 interface RemoveProps {
     id: string | undefined;
 
 }
 const Remove: React.FC<RemoveProps> = ({ id }) => {
-    const navigate = useNavigate();
-
     useEffect(() => {
         console.log("Remove 컴포넌트 렌더링됨");
         const fetchData = async (id:string) => {
@@ -22,7 +20,7 @@ const Remove: React.FC<RemoveProps> = ({ id }) => {
         if(id){
             fetchData(id);
         }
-    }, [id, navigate]);
+    }, [id]);
 
     return null;
 }
