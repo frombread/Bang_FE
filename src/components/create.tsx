@@ -105,8 +105,6 @@ const Create:React.FC =()=> {
                     ))}
                 </select>
 
-
-
                 <label htmlFor="selectedBodyParts">통증부위:</label>
                 <div id="bodyPartsCheckboxes">
                     {bodyPartsList.map((partName:string) => (

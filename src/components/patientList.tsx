@@ -51,7 +51,6 @@ const PatientList: React.FC<PatientListProps> = ({ openModal, setSelectedPatient
     return (
         <div>
             <h2 className="patient-list-title">환자 목록</h2>
-
             <ul className="patient-list">
                 {patients.map(patient => (
                     <li
