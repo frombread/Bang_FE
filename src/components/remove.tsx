@@ -7,7 +7,7 @@ interface RemoveProps {
 }
 const Remove: React.FC<RemoveProps> = ({ id }) => {
     useEffect(() => {
-        const fetchData = async (id:string) => {
+        const RemoveData = async (id:string) => {
             try {
                 await axios.delete(`http://localhost:8080/patients/remove/${id}`);
                 window.location.reload();
@@ -16,7 +16,7 @@ const Remove: React.FC<RemoveProps> = ({ id }) => {
             }
         };
         if(id){
-            fetchData(id);
+            RemoveData(id);
         }
     }, [id]);
     return null;

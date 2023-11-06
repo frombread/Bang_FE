@@ -11,11 +11,17 @@ interface ReadProps {
 const Read: React.FC<ReadProps> = ({ id }) => {
     const [data, setData] = useState<any>(null);
     const [del, setDel] = useState(false);
-
+    const [upDate, setupDate] =useState(false);
     const handleDelete = () => {
         console.log("handleDelete 함수 호출됨");
         setDel(true);
     };
+    const handleUpdate = ()=>{
+        setupDate(true);
+    }
+    const closeUpdate = ()=>{
+        setupDate(false);
+    }
 
     const handleDeleteConfirmation = (confirm: boolean) => {
         if (confirm) {
@@ -24,7 +30,7 @@ const Read: React.FC<ReadProps> = ({ id }) => {
     };
 
     useEffect(() => {
-        const fetchData = async (id:string) => {
+        const readData = async (id:string) => {
             try {
                 const response = await axios.get(`http://localhost:8080/patients/read/${id}`);
                 setData(response.data);
@@ -34,9 +40,9 @@ const Read: React.FC<ReadProps> = ({ id }) => {
         };
 
         if(id){
-            fetchData(id);
+            readData(id);
         }
-    }, [id]);
+    }, [id,data]);
 
     if (!data) {
         return <div>Loading...</div>;
@@ -44,6 +50,8 @@ const Read: React.FC<ReadProps> = ({ id }) => {
 
     return (
         <div className="read-container">
+            {!upDate && (
+                <>
             <div className="read-item">이름: {data.name}</div>
             <div className="read-item">Gender: {data.gender}</div>
             <div className="read-item">Date of Birth: {data.dateOfBirth}</div>
@@ -55,9 +63,11 @@ const Read: React.FC<ReadProps> = ({ id }) => {
                 삭제
             </button>
             {del && <Remove id={id}/>}
-            <button onClick={() => {}} type="button">
-                <Update id ={id} patientData={data}/>
+            <button onClick={() =>handleUpdate()} type="button">
+                업데이트
             </button>
+                </>)}
+            {upDate && <Update id ={id} patientData={data} closeUpdate = {closeUpdate}/>}
         </div>
 
     );

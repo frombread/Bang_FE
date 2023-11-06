@@ -34,7 +34,7 @@ const Create:React.FC =()=> {
     const { data: diseasesList = [] } = useQuery('diseases', fetchDiseases);
 
 
-    const create = async ()=> {
+    const createData = async ()=> {
         try {
             const bodyParts = selectedBodyParts;
             const response = await axios.post(
@@ -128,7 +128,7 @@ const Create:React.FC =()=> {
                     placeholder="환자에 대한 추가적인 메모를 입력하세요"
                 />
 
-                <button onClick={create} className={styles.button}>저장!</button>
+                <button onClick={createData} className={styles.button}>저장!</button>
 
             </div>
 

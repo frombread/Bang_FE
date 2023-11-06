@@ -40,7 +40,7 @@ const PatientList: React.FC<PatientListProps> = ({ openModal, setSelectedPatient
 
     useEffect(() => {
         fetchPatients(page);
-    }, [page]);
+    }, [page,patients]);
 
     const changePage = (newPage: number) => {
         if (newPage >= 1 && newPage <= entirePage) {
