@@ -21,6 +21,7 @@ const PatientList: React.FC<PatientListProps> = ({ openModal, setSelectedPatient
     const [patients, setPatients] = useState<Patient[]>([]);
     const [page, setPage] = useState(1);
     const [entirePage, setEntirePage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
 
     async function fetchPatients(pageNum: number) {
         try {
@@ -47,12 +48,21 @@ const PatientList: React.FC<PatientListProps> = ({ openModal, setSelectedPatient
             setPage(newPage);
         }
     }
+    const filteredPatients = patients.filter(patient =>
+        patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div>
             <h2 className="patient-list-title">환자 목록</h2>
+            <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="이름으로 검색"
+            />
             <ul className="patient-list">
-                {patients.map(patient => (
+                {filteredPatients.map(patient => (
                     <li
                         key={patient._id}
                         onClick={() => {

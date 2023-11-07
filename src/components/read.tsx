@@ -52,20 +52,20 @@ const Read: React.FC<ReadProps> = ({ id }) => {
         <div className="read-container">
             {!upDate && (
                 <>
-            <div className="read-item">이름: {data.name}</div>
-            <div className="read-item">Gender: {data.gender}</div>
-            <div className="read-item">Date of Birth: {data.dateOfBirth}</div>
-            <div className="read-item">Disease: {data.disease}</div>
-            <div className="read-item">Body Parts: {data.bodyParts.join(", ")}</div>
-            {data.notes && <div className="read-item">Notes: {data.notes}</div>}
+                    <div className="read-item">이름: {data.name}</div>
+                    <div className="read-item">Gender: {data.gender}</div>
+                    <div className="read-item">Date of Birth: {data.dateOfBirth}</div>
+                    <div className="read-item">Disease: {data.disease}</div>
+                    <div className="read-item">Body Parts: {data.bodyParts.join(", ")}</div>
+                    {data.notes && <div className="read-item">Notes: {data.notes}</div>}
 
-            <button onClick={() => handleDeleteConfirmation(window.confirm("정말로 삭제하시겠습니까?"))} type="button">
-                삭제
-            </button>
-            {del && <Remove id={id}/>}
-            <button onClick={() =>handleUpdate()} type="button">
-                업데이트
-            </button>
+                    <button onClick={() => handleDeleteConfirmation(window.confirm("정말로 삭제하시겠습니까?"))} type="button">
+                        삭제
+                    </button>
+                    {del && <Remove id={id}/>}
+                    <button onClick={() =>handleUpdate()} type="button">
+                        업데이트
+                    </button>
                 </>)}
             {upDate && <Update id ={id} patientData={data} closeUpdate = {closeUpdate}/>}
         </div>
