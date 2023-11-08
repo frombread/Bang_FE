@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Create from "../../components/create";
+import React, { useState } from "react";
+import styled from "styled-components";
 import Modal from "../../components/modal";
-import PatientList from "../../components/patientList"; // PatientList 컴포넌트를 추가합니다.
-import "../../styles/main.css"
+import PatientList from "../../components/patientList";
+
 interface Patient {
     _id: string;
     name: string;
@@ -13,9 +13,7 @@ interface Patient {
     notes?: string;
 }
 
-
 const Main: React.FC = () => {
-    const [showCreate, setShowCreate] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -28,27 +26,44 @@ const Main: React.FC = () => {
         setShowModal(false);
     };
 
-    const clickCreateButton = () => {
-        setShowCreate(!showCreate);
-    };
-
     return (
-        <div className="main-container">
-            <h1>Main Room Component</h1>
-            <div>
-                <button onClick={clickCreateButton}>create</button>
-                {showCreate && <Create />}
-            </div>
+        <MainContainer>
+            <HeaderContainer></HeaderContainer>
+            <BoxContainer>
+                <PatientList
+                    openModal={openModal}
+                    setSelectedPatient={setSelectedPatient}
+                />
+            </BoxContainer>
 
-            {!showCreate && (
-                <PatientList openModal={openModal} setSelectedPatient={setSelectedPatient} />
-            )}
-
-            {showModal && (
-                <Modal id={selectedPatient?._id} closeModal={closeModal} />
-            )}
-        </div>
+            {showModal && <Modal id={selectedPatient?._id} closeModal={closeModal} />}
+        </MainContainer>
     );
 };
+
+const MainContainer = styled.div`
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`;
+
+const HeaderContainer = styled.div`
+  max-width: 800px;
+  height: 50px;
+  background-color: #00aa63;
+`;
+
+const BoxContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+`;
 
 export default Main;

@@ -1,9 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'; // 추가
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query"; // 추가
 
-import Main from "./pages/Main/main"
-import Create from "./components/create";
+import Main from "./pages/Main/main";
 
 const queryClient = new QueryClient(); // 추가
 
@@ -13,7 +12,6 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Main />} />
-                    <Route path="/patient" element={<Create />} />
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>
