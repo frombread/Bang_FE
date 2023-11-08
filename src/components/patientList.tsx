@@ -27,6 +27,8 @@ const PatientList: React.FC<PatientListProps> = ({
     const [page, setPage] = useState(1);
     const [entirePage, setEntirePage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
+    const [Search,setSearch]=useState(false);
+    const [findPageNum, setFindPageNum] = useState(1);
     // const [filteredPatients, setFilteredPatients] =useState<Patient[]>([]);
 
     const fetchPatients = async (pageNum:number)=>{
@@ -44,10 +46,21 @@ const PatientList: React.FC<PatientListProps> = ({
             alert("불러오기 실패");
         }
     }
-    const searchPatient = async (name : string)=>{
+    const searchPatient = async (findPageNum:number, searchTerm : string)=>{
         try{
-            const response = await axios.get(`http://localhost:8080/patients/:{name}`);
-            // setFilteredPatients(response.data);
+            const response = await axios.get(`http://localhost:8080/patients/byname`,{
+                params:{
+                    page: findPageNum,
+                    pageSize:10,
+                    searchTerm: searchTerm,
+                },
+            });
+            if (searchTerm===""){
+                window.location.reload();
+            }else {
+                setPatients(response.data.data);
+                setEntirePage(response.data.pageNum);
+            }
         }catch (error) {
             console.error("불러오기 실패 :", error);
             alert("불러오기 실패");
@@ -55,18 +68,23 @@ const PatientList: React.FC<PatientListProps> = ({
     }
 
     useEffect(() => {
-        fetchPatients(page);
+        if(!Search) {
+            fetchPatients(page);
+        }
     }, [page, patients]);
 
     const changePage = (newPage: number) => {
         if (newPage >= 1 && newPage <= entirePage) {
             setPage(newPage);
         }
-    };
 
-    // const filteredPatients = patients.filter((patient) =>
-    //     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
+        if(Search && newPage >= 1 && newPage <= entirePage){
+            setFindPageNum(newPage);
+        }
+    };
+    const searchButton =()=>{
+        setSearch(true);
+    }
 
     const clickCreateButton = () => {
         setShowCreate(!showCreate);
@@ -86,9 +104,15 @@ const PatientList: React.FC<PatientListProps> = ({
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 placeholder="이름으로 검색"
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                        searchPatient(findPageNum ,searchTerm);
+                                        searchButton();
+                                    }
+                                }}
                             />
                             <SearchButtonContainer>
-                                {/*<SearchButton onClick={()=>{searchPatient}}>검색</SearchButton>*/}
+                                <SearchButton onClick={()=>{searchPatient(findPageNum ,searchTerm); searchButton();}}>검색</SearchButton>
                             </SearchButtonContainer>
                         </SearchContainer>
                         <ButtonContainer>
