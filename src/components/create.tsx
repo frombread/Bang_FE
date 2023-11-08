@@ -39,8 +39,21 @@ const Create: React.FC<propsCreate> = ({ closeCreate }) => {
 
     const createData = async () => {
         try {
+            if (!name || !gender || !dateOfBirth || !disease || selectedBodyParts.length === 0) {
+                alert("비어 있는 항목이 있습니다!");
+                return;
+            }
+            if (!dateOfBirth || !/^\d{6}$/.test(dateOfBirth.toString())) {
+                alert("유효한 생년월일을 입력하세요! (6자리 숫자).");
+                return;
+            }
+
+            if (selectedBodyParts.length === 0) {
+                alert("적어도 한 개 이상의 body part를 선택하세요.");
+                return;
+            }
             const bodyParts = selectedBodyParts;
-            const response = await axios.post(
+            await axios.post(
                 `http://localhost:8080/patients/create`,
                 {
                     name,
