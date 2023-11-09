@@ -34,6 +34,7 @@ const Read: React.FC<ReadProps> = ({ id }) => {
     const [disease, setDisease] = useState<string>("");
     const [selectedBodyParts, setSelectedBodyParts] = useState<string[]>([]);
     const [notes, setNotes] = useState<string>("");
+    const [alertEvnet, setalertEvnet] = useState(false);
 
     useEffect(() => {
         const readData = async (id: string) => {
@@ -56,7 +57,10 @@ const Read: React.FC<ReadProps> = ({ id }) => {
         if (id) {
             readData(id);
         }
-    }, [id]);
+        if(alertEvnet){
+            alertEvent();
+        }
+    }, [id,alertEvnet]);
 
     const fetchBodyParts = async () => {
         const response = await fetch("http://localhost:8080/bodyparts");
@@ -81,8 +85,13 @@ const Read: React.FC<ReadProps> = ({ id }) => {
         setupDate(true);
     };
     const closeUpdate = () => {
+        setalertEvnet(true);
         setupDate(false);
     };
+    const alertEvent=()=>{
+        alert("수정을 완료 했습니다.");
+        setalertEvnet(false);
+    }
 
     const handleDeleteConfirmation = (confirm: boolean) => {
         if (confirm) {

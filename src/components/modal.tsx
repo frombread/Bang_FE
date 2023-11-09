@@ -47,6 +47,7 @@ const CloseButton = styled.span`
   float: right;
   font-size: 24px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const ReadContent =styled.div`

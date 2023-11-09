@@ -26,7 +26,7 @@ const Update: React.FC<UpdateProps> = ({ id,_name,gender,dateOfBirth,disease,bod
         try {
             await axios.put(
                 `http://localhost:8080/patients/update/${id}`,
-                updateData
+                updateData,
             );
             closeUpdate();
 
