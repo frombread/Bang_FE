@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+## 구현한 방법
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 초기에 시드 데이터를 넣어 놓고, 처음 실행시 빈 화면이 보이지 않게 구현
+- 데이터베이스는  환자정보, 기저질환, 통증부위 3개의 스키마로 구성
+    - 기저 질환과 통증 부위 목록은 클라이언트 사이드에서 수정과 추가가 불가능하게 구현
+- restAPI를 통해 서버와 클라이언트간의 통신을 구현
+- React Query 라이브러리를 활용해서 기저 질환과 통증부위를 불러오는 부분을 캐싱
+    - 데이터에 대한 불필요한 중복 요청을 방지
 
-## Available Scripts
+## 어려웠던 점
 
-In the project directory, you can run:
+- 검색 기능 활용시 페이지 내에서만 검색되는 문제를 해결하는 과정
+- 프론트 구현중에 모달이랑 조회하고 수정하는 컨포넌트 구조를 설계하는 부분
+- 실행 환경에 따라 달라질 수 있는 부분을 고려하면서 실행 방법을 작성하는 부분
 
-### `npm start`
+# 실행 방법
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 두 가지 실행 방법 중 하나를 선택해서 실행
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 방법1: 도커 활용
 
-### `npm test`
+> **사전 작업**:  docker desktop 실행
+> 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+# 레포지토리 클론
+git clone https://github.com/frombread/Bang_FE
+git clone https://github.com/frombread/Bang_BE
+```
 
-### `npm run build`
+```bash
+# 상위 디렉토리 생성
+mkdir human_bang
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 복제한 레포를 새로 생성한 디렉토리로 이동
+mv bang_FE human_bang/
+mv bang_BE human_bang/
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- BE 저장소에 있는 docker-compose.yaml 파일을 상위 디렉토리로 이동
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cd human_bang
+mv Bang_BE/docker-compose.yaml ./docker-compose.yaml
+```
 
-### `npm run eject`
+```bash
+docker-compose up --build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+http://localhost:8060 으로 접속
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 방법2: 직접 실행 방법 (로컬환경)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> **사전 작업**: mongoDB 실행 (27017포트)
+> 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+# 저장소를 복제합니다.
+git clone https://github.com/frombread/Bang_FE
+git clone https://github.com/frombread/Bang_BE
+```
 
-## Learn More
+```bash
+# Bang_BE 디렉토리로 이동
+cd Bang_BE
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# 필요한 라이브러리를 설치
+npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 시드 데이터 저장
+npm run seed
+
+# 프로그램 실행
+npm run start
+```
+
+```bash
+# 새로운 터미널에서 Bang_FE 디렉토리로 이동
+cd Bang_FE
+
+# 필요한 라이브러리를 설치
+npm install
+
+# 프로그램 실행
+npm start
+```
+
+```bash
+http://localhost:3000 으로 접속
+```
