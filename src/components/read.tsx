@@ -7,7 +7,6 @@ import {useQuery} from "react-query";
 import {
     BirthInput, Body, ButtonContainer, CancelButton,
     Category,
-    CheckInput,
     ContentsContainer,
     MemoInput,
     NameInput,
@@ -151,10 +150,9 @@ const Read: React.FC<ReadProps> = ({ id }) => {
                                 {bodyPartsList.map((partName: string) => (
                                     <Body
                                         key={partName}
-                                        className={selectedBodyParts.includes(partName) ? "active" : ""}
                                         onClick={() => handleLabelClick(partName)}
                                         style={{
-                                            color: selectedBodyParts.includes(partName) ? "red" : "black",
+                                            color: selectedBodyParts.includes(partName) ? "#00aa63" : "black",
                                             fontWeight: selectedBodyParts.includes(partName)
                                                 ? "800"
                                                 : "500",
@@ -172,12 +170,12 @@ const Read: React.FC<ReadProps> = ({ id }) => {
                                 placeholder="환자에 대한 추가적인 메모를 입력하세요."
                             />
                             <ButtonContainer>
-                                <SaveButton onClick={() =>handleUpdate()}>수정하기</SaveButton>
                                 <DeleteButton
                                     onClick={() => handleDeleteConfirmation(window.confirm("정말로 삭제하시겠습니까?"))}
                                 >
                                     삭제
                                 </DeleteButton>
+                                <SaveButton onClick={() =>handleUpdate()}>수정하기</SaveButton>
                             </ButtonContainer>
                         </ContentsContainer>
                     </RegisterContainer>

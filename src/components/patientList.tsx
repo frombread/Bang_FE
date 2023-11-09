@@ -30,6 +30,7 @@ const PatientList: React.FC<PatientListProps> = ({
     const [Search,setSearch]=useState(false);
     const [findPageNum, setFindPageNum] = useState(1);
     // const [filteredPatients, setFilteredPatients] =useState<Patient[]>([]);
+    const [selectedPage, setSelectedPage] = useState(1);
 
     const fetchPatients = async (pageNum:number)=>{
         try {
@@ -76,6 +77,8 @@ const PatientList: React.FC<PatientListProps> = ({
     const changePage = (newPage: number) => {
         if (newPage >= 1 && newPage <= entirePage) {
             setPage(newPage);
+            setSelectedPage(newPage);
+
         }
 
         if(Search && newPage >= 1 && newPage <= entirePage){
@@ -89,6 +92,7 @@ const PatientList: React.FC<PatientListProps> = ({
     const clickCreateButton = () => {
         setShowCreate(!showCreate);
     };
+
 
     return (
         <div>
@@ -137,7 +141,13 @@ const PatientList: React.FC<PatientListProps> = ({
                     </PatientsList>
                     <PageButtonContainer>
                         {Array.from({ length: entirePage }, (_, index) => (
-                            <PageButton key={index + 1} onClick={() => changePage(index + 1)}>
+                            <PageButton key={index + 1}
+                                        onClick={() => changePage(index + 1)}
+                                        style={{
+                                            color: index + 1 === selectedPage ? "#00aa63" : "black",
+                                            fontWeight: index + 1 === selectedPage ? "900" : "300",
+                                        }}
+                            >
                                 {index + 1}
                             </PageButton>
                         ))}
@@ -217,6 +227,8 @@ const PageButton = styled.div`
   margin-left: 30px;
   font-weight: 700;
   font-size: 20px;
+  font-family: "GmarketSansMedium";
+  
 `;
 
 const RegisterButton = styled.div`

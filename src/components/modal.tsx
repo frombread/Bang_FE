@@ -12,7 +12,9 @@ const Modal: React.FC<ModalProps> = ({ id, closeModal }) => {
         <ModalContainer style={{ display: id ? "block" : "none" }}>
             <ModalContent>
                 <CloseButton onClick={closeModal}>&times;</CloseButton>
-                <Read id={id} />
+                <ReadContent>
+                    <Read id={id} />
+                </ReadContent>
             </ModalContent>
         </ModalContainer>
     );
@@ -46,5 +48,12 @@ const CloseButton = styled.span`
   font-size: 24px;
   font-weight: bold;
 `;
+
+const ReadContent =styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
 
 export default Modal;

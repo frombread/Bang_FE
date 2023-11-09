@@ -47,6 +47,14 @@ const Create: React.FC<propsCreate> = ({ closeCreate }) => {
                 alert("유효한 생년월일을 입력하세요! (6자리 숫자).");
                 return;
             }
+            const year = parseInt(dateOfBirth.toString().substring(0, 2));
+            const month = parseInt(dateOfBirth.toString().substring(2, 4));
+            const day = parseInt(dateOfBirth.toString().substring(4, 6));
+
+            if (year < 0 || year > 99 || month < 1 || month > 12 || day < 1 || day > 31) {
+                alert("올바른 생년월일을 입력하세요.");
+                return;
+            }
 
             if (selectedBodyParts.length === 0) {
                 alert("적어도 한 개 이상의 body part를 선택하세요.");
@@ -132,10 +140,9 @@ const Create: React.FC<propsCreate> = ({ closeCreate }) => {
                         {bodyPartsList.map((partName: string) => (
                             <Body
                                 key={partName}
-                                className={selectedBodyParts.includes(partName) ? "active" : ""}
                                 onClick={() => handleLabelClick(partName)}
                                 style={{
-                                    color: selectedBodyParts.includes(partName) ? "red" : "black",
+                                    color: selectedBodyParts.includes(partName) ? "#00aa63" : "black",
                                     fontWeight: selectedBodyParts.includes(partName)
                                         ? "800"
                                         : "500",
@@ -153,8 +160,8 @@ const Create: React.FC<propsCreate> = ({ closeCreate }) => {
                         placeholder="환자에 대한 추가적인 메모를 입력하세요."
                     />
                     <ButtonContainer>
-                        <SaveButton onClick={createData}>등록하기</SaveButton>
                         <CancelButton onClick={closeCreate}>나가기</CancelButton>
+                        <SaveButton onClick={createData}>등록하기</SaveButton>
                     </ButtonContainer>
                 </ContentsContainer>
             </RegisterContainer>
@@ -220,24 +227,6 @@ export const Body = styled.span`
   cursor: pointer;
   margin-right: 10px;
   font-family: "GmarketSansMedium";
-`;
-
-export const CheckInput = styled.input`
-  appearance: none;
-  border: 1px solid #2f3438;
-  border-radius: 4px;
-  width: 18px;
-  height: 18px;
-  margin-right: 5px;
-
-  &:checked {
-    border-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-    background-size: 100% 100%;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-color: #4dc270;
-  }
 `;
 
 const MemoCategory = styled.div`
